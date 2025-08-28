@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_components_search_bars",
+  "info": {
+    "displayName": "searchBar"
+  },
+  "options": {},
+  "attributes": {
+    "searchSpace": {
+      "type": "string",
+      "default": "enter song name"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

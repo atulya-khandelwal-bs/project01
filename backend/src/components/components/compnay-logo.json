@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_components_compnay_logos",
+  "info": {
+    "displayName": "compnayLogo"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}
