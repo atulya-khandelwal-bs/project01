@@ -48,6 +48,17 @@ export interface ComponentsSongs extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsUserPass extends Struct.ComponentSchema {
+  collectionName: 'components_components_user_passes';
+  info: {
+    displayName: 'userPass';
+  };
+  attributes: {
+    usermail: Schema.Attribute.Email;
+    userPassword: Schema.Attribute.Password;
+  };
+}
+
 export interface LayoutFooter extends Struct.ComponentSchema {
   collectionName: 'components_layout_footers';
   info: {
@@ -86,33 +97,6 @@ export interface LayoutHeroSection extends Struct.ComponentSchema {
   };
 }
 
-export interface LayoutLoginCard extends Struct.ComponentSchema {
-  collectionName: 'components_layout_login_cards';
-  info: {
-    displayName: 'Login Card';
-  };
-  attributes: {
-    background: Schema.Attribute.Media<'images'>;
-    email: Schema.Attribute.Email;
-    footHeading: Schema.Attribute.String;
-    footlink: Schema.Attribute.Component<'components.link', false>;
-    heading: Schema.Attribute.String;
-    lsButton: Schema.Attribute.Component<'components.link', false>;
-    password: Schema.Attribute.Password;
-    username: Schema.Attribute.String;
-  };
-}
-
-export interface LayoutSignUpCard extends Struct.ComponentSchema {
-  collectionName: 'components_layout_sign_up_cards';
-  info: {
-    displayName: 'SignUP Card';
-  };
-  attributes: {
-    SignUp: Schema.Attribute.Component<'layout.login-card', false>;
-  };
-}
-
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -120,11 +104,10 @@ declare module '@strapi/strapi' {
       'components.link': ComponentsLink;
       'components.search-bar': ComponentsSearchBar;
       'components.songs': ComponentsSongs;
+      'components.user-pass': ComponentsUserPass;
       'layout.footer': LayoutFooter;
       'layout.header': LayoutHeader;
       'layout.hero-section': LayoutHeroSection;
-      'layout.login-card': LayoutLoginCard;
-      'layout.sign-up-card': LayoutSignUpCard;
     }
   }
 }

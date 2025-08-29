@@ -11,13 +11,19 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "signUp": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "credDetails": {
       "type": "component",
-      "component": "layout.sign-up-card",
+      "component": "components.user-pass",
       "repeatable": false
     },
-    "text": {
-      "type": "string"
+    "confirmPass": {
+      "type": "password"
     }
   }
 }

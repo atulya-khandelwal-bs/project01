@@ -11,12 +11,9 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "text": {
-      "type": "string"
-    },
-    "loginP": {
+    "credentials": {
       "type": "component",
-      "component": "layout.login-card",
+      "component": "components.user-pass",
       "repeatable": false
     }
   }

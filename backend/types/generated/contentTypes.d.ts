@@ -448,15 +448,14 @@ export interface ApiLoginPageLoginPage extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    credentials: Schema.Attribute.Component<'components.user-pass', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::login-page.login-page'
     > &
       Schema.Attribute.Private;
-    loginP: Schema.Attribute.Component<'layout.login-card', false>;
     publishedAt: Schema.Attribute.DateTime;
-    text: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -474,9 +473,13 @@ export interface ApiSignUpPageSignUpPage extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    confirmPass: Schema.Attribute.Password;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    credDetails: Schema.Attribute.Component<'components.user-pass', false>;
+    firstName: Schema.Attribute.String;
+    lastName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -484,8 +487,6 @@ export interface ApiSignUpPageSignUpPage extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    signUp: Schema.Attribute.Component<'layout.sign-up-card', false>;
-    text: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

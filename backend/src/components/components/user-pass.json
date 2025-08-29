@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_components_user_passes",
+  "info": {
+    "displayName": "userPass"
+  },
+  "options": {},
+  "attributes": {
+    "usermail": {
+      "type": "email"
+    },
+    "userPassword": {
+      "type": "password"
+    }
+  },
+  "config": {}
+}
