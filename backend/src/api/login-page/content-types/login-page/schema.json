@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "login_pages",
+  "info": {
+    "singularName": "login-page",
+    "pluralName": "login-pages",
+    "displayName": "Login Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    },
+    "loginP": {
+      "type": "component",
+      "component": "layout.login-card",
+      "repeatable": false
+    }
+  }
+}

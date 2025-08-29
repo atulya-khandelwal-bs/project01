@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "sign_up_pages",
+  "info": {
+    "singularName": "sign-up-page",
+    "pluralName": "sign-up-pages",
+    "displayName": "SignUp Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "signUp": {
+      "type": "component",
+      "component": "layout.sign-up-card",
+      "repeatable": false
+    },
+    "text": {
+      "type": "string"
+    }
+  }
+}
