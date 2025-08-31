@@ -5,23 +5,11 @@
   },
   "options": {},
   "attributes": {
-    "Background": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
     "heading": {
       "type": "string"
     },
     "subHeading": {
       "type": "string"
-    },
-    "searchBar": {
-      "type": "component",
-      "component": "components.search-bar",
-      "repeatable": false
     },
     "songs": {
       "type": "relation",

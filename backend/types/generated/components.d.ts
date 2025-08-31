@@ -18,7 +18,6 @@ export interface ComponentsLink extends Struct.ComponentSchema {
   };
   attributes: {
     text: Schema.Attribute.String;
-    type: Schema.Attribute.Enumeration<['PRIMARY', 'SECONDARY']>;
     url: Schema.Attribute.Text;
   };
 }
@@ -52,10 +51,8 @@ export interface LayoutFooter extends Struct.ComponentSchema {
     displayName: 'Footer';
   };
   attributes: {
-    description: Schema.Attribute.Text;
-    foot: Schema.Attribute.String;
-    links: Schema.Attribute.Component<'components.link', true>;
-    logo: Schema.Attribute.Component<'components.compnay-logo', false>;
+    desc: Schema.Attribute.String;
+    text: Schema.Attribute.String;
   };
 }
 
@@ -76,9 +73,7 @@ export interface LayoutHeroSection extends Struct.ComponentSchema {
     displayName: 'Hero Section';
   };
   attributes: {
-    Background: Schema.Attribute.Media<'images'>;
     heading: Schema.Attribute.String;
-    searchBar: Schema.Attribute.Component<'components.search-bar', false>;
     songs: Schema.Attribute.Relation<'oneToMany', 'api::song.song'>;
     subHeading: Schema.Attribute.String;
   };

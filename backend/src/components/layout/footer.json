@@ -5,20 +5,10 @@
   },
   "options": {},
   "attributes": {
-    "description": {
-      "type": "text"
+    "text": {
+      "type": "string"
     },
-    "logo": {
-      "type": "component",
-      "component": "components.compnay-logo",
-      "repeatable": false
-    },
-    "links": {
-      "type": "component",
-      "component": "components.link",
-      "repeatable": true
-    },
-    "foot": {
+    "desc": {
       "type": "string"
     }
   },

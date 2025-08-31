@@ -3,18 +3,82 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(true); // default is login form
+  const [isLogin, setIsLogin] = useState(true);
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [error, setError] = useState("");
 
-  const handleLoginIn = () => {
-    // localStorage.removeItem("token");  // Example
-
-    navigate("/"); //  redirect to login/signup page
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSignUp = () => {
-    // localStorage.removeItem("token");  // Example
+  // Login handler
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
 
-    navigate("/"); //  redirect to login/signup page
+    try {
+      const response = await fetch("http://localhost:1337/api/auth/local", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          identifier: formData.email, // email or username
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("token", data.jwt); // save JWT token
+        navigate("/"); // redirect to home
+      } else {
+        setError(data.error?.message || "Login failed");
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    }
+  };
+
+  // Signup handler
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "http://localhost:1337/api/auth/local/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: formData.username,
+            email: formData.email,
+            password: formData.password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("token", data.jwt); // save JWT
+        navigate("/"); // redirect to home
+      } else {
+        setError(data.error?.message || "Signup failed");
+      }
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -24,23 +88,35 @@ export default function Login() {
           {isLogin ? "Login" : "Sign Up"}
         </h2>
 
+        {/* Error Message */}
+        {error && (
+          <div className="bg-red-100 text-red-700 p-2 mb-4 rounded-md text-sm">
+            {error}
+          </div>
+        )}
+
         {/* Login Form */}
         {isLogin && (
-          <form className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4" onSubmit={handleLogin}>
             <input
-              type="email"
-              placeholder="Email/Username"
+              type="text"
+              name="email"
+              placeholder="Email or Username"
               className="border p-2 rounded-md"
+              value={formData.email}
+              onChange={handleChange}
             />
             <input
               type="password"
+              name="password"
               placeholder="Password"
               className="border p-2 rounded-md"
+              value={formData.password}
+              onChange={handleChange}
             />
             <button
               type="submit"
               className="bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition"
-              onClick={handleLoginIn}
             >
               Login
             </button>
@@ -49,36 +125,42 @@ export default function Login() {
 
         {/* Signup Form */}
         {!isLogin && (
-          <form className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4" onSubmit={handleSignUp}>
             <input
               type="text"
-              placeholder="Full Name"
+              name="username"
+              placeholder="Username"
               className="border p-2 rounded-md"
-            />
-            <input
-              type="text"
-              placeholder="username"
-              className="border p-2 rounded-md"
+              value={formData.username}
+              onChange={handleChange}
             />
             <input
               type="email"
+              name="email"
               placeholder="Email"
               className="border p-2 rounded-md"
+              value={formData.email}
+              onChange={handleChange}
             />
             <input
               type="password"
+              name="password"
               placeholder="Password"
               className="border p-2 rounded-md"
+              value={formData.password}
+              onChange={handleChange}
             />
             <input
               type="password"
+              name="confirmPassword"
               placeholder="Confirm Password"
               className="border p-2 rounded-md"
+              value={formData.confirmPassword}
+              onChange={handleChange}
             />
             <button
               type="submit"
               className="bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition"
-              onClick={handleSignUp}
             >
               Sign Up
             </button>
