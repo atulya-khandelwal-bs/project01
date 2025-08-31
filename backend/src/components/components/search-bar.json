@@ -9,12 +9,10 @@
       "type": "string",
       "default": "enter song name"
     },
-    "icon": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images"
-      ]
+    "searchImage": {
+      "type": "component",
+      "component": "components.compnay-logo",
+      "repeatable": false
     }
   },
   "config": {}

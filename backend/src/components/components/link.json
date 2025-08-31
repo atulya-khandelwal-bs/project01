@@ -10,6 +10,13 @@
     },
     "url": {
       "type": "text"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "PRIMARY",
+        "SECONDARY"
+      ]
     }
   },
   "config": {}

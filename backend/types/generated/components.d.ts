@@ -3,10 +3,10 @@ import type { Schema, Struct } from '@strapi/strapi';
 export interface ComponentsCompnayLogo extends Struct.ComponentSchema {
   collectionName: 'components_components_compnay_logos';
   info: {
-    displayName: 'compnayLogo';
+    displayName: 'image';
   };
   attributes: {
-    logo: Schema.Attribute.Media<'images'>;
+    photo: Schema.Attribute.Media<'images'>;
     text: Schema.Attribute.String;
   };
 }
@@ -18,6 +18,7 @@ export interface ComponentsLink extends Struct.ComponentSchema {
   };
   attributes: {
     text: Schema.Attribute.String;
+    type: Schema.Attribute.Enumeration<['PRIMARY', 'SECONDARY']>;
     url: Schema.Attribute.Text;
   };
 }
@@ -28,23 +29,9 @@ export interface ComponentsSearchBar extends Struct.ComponentSchema {
     displayName: 'searchBar';
   };
   attributes: {
-    icon: Schema.Attribute.Media<'images'>;
+    searchImage: Schema.Attribute.Component<'components.compnay-logo', false>;
     searchSpace: Schema.Attribute.String &
       Schema.Attribute.DefaultTo<'enter song name'>;
-  };
-}
-
-export interface ComponentsSongs extends Struct.ComponentSchema {
-  collectionName: 'components_components_songs';
-  info: {
-    displayName: 'songs';
-  };
-  attributes: {
-    description: Schema.Attribute.Text;
-    genre: Schema.Attribute.String;
-    isPlayed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    link: Schema.Attribute.Media<'audios', true>;
-    name: Schema.Attribute.String;
   };
 }
 
@@ -81,7 +68,7 @@ export interface LayoutHeroSection extends Struct.ComponentSchema {
     Background: Schema.Attribute.Media<'images'>;
     heading: Schema.Attribute.String;
     searchBar: Schema.Attribute.Component<'components.search-bar', false>;
-    songs: Schema.Attribute.Component<'components.songs', true>;
+    songs: Schema.Attribute.Relation<'oneToMany', 'api::song.song'>;
     subHeading: Schema.Attribute.String;
   };
 }
@@ -92,7 +79,6 @@ declare module '@strapi/strapi' {
       'components.compnay-logo': ComponentsCompnayLogo;
       'components.link': ComponentsLink;
       'components.search-bar': ComponentsSearchBar;
-      'components.songs': ComponentsSongs;
       'layout.footer': LayoutFooter;
       'layout.header': LayoutHeader;
       'layout.hero-section': LayoutHeroSection;
