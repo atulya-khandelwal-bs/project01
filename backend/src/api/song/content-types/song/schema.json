@@ -17,14 +17,21 @@
     "description": {
       "type": "text"
     },
-    "artist": {
+    "singer": {
+      "type": "string"
+    },
+    "lyricist": {
       "type": "string"
     },
     "genre": {
       "type": "string"
     },
-    "link": {
-      "type": "text"
+    "music": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "audios"
+      ]
     },
     "isPlayed": {
       "type": "boolean",
