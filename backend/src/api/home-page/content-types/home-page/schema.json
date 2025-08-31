@@ -11,15 +11,19 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "text": {
-      "type": "string"
-    },
-    "description": {
-      "type": "text"
+    "Header": {
+      "type": "component",
+      "component": "layout.header",
+      "repeatable": false
     },
     "HeroSection": {
       "type": "component",
       "component": "layout.hero-section",
+      "repeatable": false
+    },
+    "footer": {
+      "type": "component",
+      "component": "layout.footer",
       "repeatable": false
     }
   }

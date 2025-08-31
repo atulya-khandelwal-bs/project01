@@ -7,19 +7,6 @@
   "attributes": {
     "description": {
       "type": "text"
-    },
-    "logo": {
-      "type": "component",
-      "component": "components.compnay-logo",
-      "repeatable": false
-    },
-    "links": {
-      "type": "component",
-      "component": "components.link",
-      "repeatable": true
-    },
-    "foot": {
-      "type": "string"
     }
   },
   "config": {}

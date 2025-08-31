@@ -66,9 +66,6 @@ export interface LayoutFooter extends Struct.ComponentSchema {
   };
   attributes: {
     description: Schema.Attribute.Text;
-    foot: Schema.Attribute.String;
-    links: Schema.Attribute.Component<'components.link', true>;
-    logo: Schema.Attribute.Component<'components.compnay-logo', false>;
   };
 }
 
