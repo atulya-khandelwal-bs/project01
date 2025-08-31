@@ -24,9 +24,9 @@
       "repeatable": false
     },
     "songs": {
-      "type": "component",
-      "component": "components.songs",
-      "repeatable": true
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::song.song"
     }
   },
   "config": {}

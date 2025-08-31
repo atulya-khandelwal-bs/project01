@@ -1,14 +1,14 @@
 {
   "collectionName": "components_components_compnay_logos",
   "info": {
-    "displayName": "compnayLogo"
+    "displayName": "image"
   },
   "options": {},
   "attributes": {
     "text": {
       "type": "string"
     },
-    "logo": {
+    "photo": {
       "type": "media",
       "multiple": false,
       "allowedTypes": [
