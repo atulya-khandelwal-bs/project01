@@ -471,65 +471,6 @@ export interface ApiHomePageHomePage extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiLoginPageLoginPage extends Struct.SingleTypeSchema {
-  collectionName: 'login_pages';
-  info: {
-    displayName: 'Login Page';
-    pluralName: 'login-pages';
-    singularName: 'login-page';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    credentials: Schema.Attribute.Component<'components.user-pass', false>;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::login-page.login-page'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiSignUpPageSignUpPage extends Struct.SingleTypeSchema {
-  collectionName: 'sign_up_pages';
-  info: {
-    displayName: 'SignUp Page';
-    pluralName: 'sign-up-pages';
-    singularName: 'sign-up-page';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    confirmPass: Schema.Attribute.Password;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    credDetails: Schema.Attribute.Component<'components.user-pass', false>;
-    firstName: Schema.Attribute.String;
-    lastName: Schema.Attribute.String;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::sign-up-page.sign-up-page'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface ApiSongSong extends Struct.CollectionTypeSchema {
   collectionName: 'songs';
   info: {
@@ -1072,8 +1013,6 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::global.global': ApiGlobalGlobal;
       'api::home-page.home-page': ApiHomePageHomePage;
-      'api::login-page.login-page': ApiLoginPageLoginPage;
-      'api::sign-up-page.sign-up-page': ApiSignUpPageSignUpPage;
       'api::song.song': ApiSongSong;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

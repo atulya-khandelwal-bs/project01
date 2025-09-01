@@ -9,7 +9,6 @@ function Header() {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    // 🔑 If no token → redirect immediately
     if (!token) {
       navigate("/login");
       return;
@@ -27,7 +26,6 @@ function Header() {
           }
         );
 
-        // 🔑 If unauthorized → clear token + redirect
         if (response.status === 401) {
           localStorage.removeItem("token");
           localStorage.removeItem("user");
@@ -66,12 +64,11 @@ function Header() {
   const logoText = headerData.logo?.text || "App";
   const logoUrl = headerData.logo?.photo?.url
     ? `http://localhost:1337${headerData.logo.photo.url}`
-    : "./assets/react.svg";
+    : headerData.logo?.photo?.url;
 
   const link = headerData.links?.[0] || { text: "Sign Out", url: "/login" };
 
   const handleSignOut = () => {
-    // 🔑 Remove JWT + any stored user info
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate(link.url || "/login");

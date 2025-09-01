@@ -26,7 +26,7 @@ export default function Login() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          identifier: formData.email, // email or username
+          identifier: formData.email,
           password: formData.password,
         }),
       });
@@ -34,8 +34,8 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.jwt); // save JWT token
-        navigate("/"); // redirect to home
+        localStorage.setItem("token", data.jwt);
+        navigate("/");
       } else {
         setError(data.error?.message || "Login failed");
       }
@@ -44,7 +44,6 @@ export default function Login() {
     }
   };
 
-  // Signup handler
   const handleSignUp = async (e) => {
     e.preventDefault();
     setError("");
@@ -71,8 +70,8 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.jwt); // save JWT
-        navigate("/"); // redirect to home
+        localStorage.setItem("token", data.jwt);
+        navigate("/");
       } else {
         setError(data.error?.message || "Signup failed");
       }

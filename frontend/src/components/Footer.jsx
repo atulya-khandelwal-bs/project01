@@ -27,7 +27,6 @@ function Footer() {
   }, []);
 
   const currentDate = new Date().toLocaleDateString("en-GB");
-  // format: dd/mm/yyyy
 
   return (
     <footer className="bg-gray-900 text-gray-300 py-6 text-center">

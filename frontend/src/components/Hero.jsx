@@ -9,7 +9,6 @@ const Hero = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    // 🔑 If no token, redirect immediately
     if (!token) {
       navigate("/login");
       return;
@@ -27,7 +26,6 @@ const Hero = () => {
           }
         );
 
-        // 🔑 Handle unauthorized
         if (response.status === 401) {
           localStorage.removeItem("token");
           localStorage.removeItem("user");

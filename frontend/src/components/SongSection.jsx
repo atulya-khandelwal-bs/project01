@@ -14,7 +14,6 @@ const SongSection = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    // 🔑 Redirect if no token
     if (!token) {
       navigate("/login");
       return;
@@ -30,7 +29,6 @@ const SongSection = () => {
           `&pagination[pageSize]=${songsPerPage}` +
           `&populate=music`;
 
-        // 🔍 search by song name OR artist (singer)
         if (q) {
           url +=
             `&filters[$or][0][name][$containsi]=${encodeURIComponent(q)}` +
@@ -40,11 +38,10 @@ const SongSection = () => {
         const response = await fetch(url, {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // ✅ secure request
+            Authorization: `Bearer ${token}`,
           },
         });
 
-        // 🔑 Handle unauthorized
         if (response.status === 401) {
           localStorage.removeItem("token");
           localStorage.removeItem("user");
@@ -72,7 +69,6 @@ const SongSection = () => {
   };
 
   const handlePlay = async (songId, currentEl) => {
-    // Pause all other songs when one plays
     document.querySelectorAll("audio").forEach((a) => {
       if (a !== currentEl && !a.paused) a.pause();
     });
@@ -83,7 +79,7 @@ const SongSection = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // ✅ secure update
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ data: { isPlayed: true } }),
       });
@@ -94,7 +90,6 @@ const SongSection = () => {
 
   return (
     <div className="p-10 bg-gradient-to-br from-gray-900 via-black to-gray-800 min-h-screen text-white">
-      {/* 🔍 Search box */}
       <div className="flex justify-center mb-8">
         <input
           type="text"
@@ -102,7 +97,7 @@ const SongSection = () => {
           value={searchQuery}
           onChange={(e) => {
             setSearchQuery(e.target.value);
-            setCurrentPage(1); // reset to first page on new search
+            setCurrentPage(1);
           }}
           className="w-full max-w-md px-4 py-2 rounded-xl border border-gray-600 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-pink-500"
         />
