@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import config from "../config";
 
 const SongSection = () => {
   const [songs, setSongs] = useState([]);
@@ -8,23 +10,17 @@ const SongSection = () => {
   const [loading, setLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+  const { token, signOut } = useAuth();
   const songsPerPage = 10;
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      navigate("/login");
-      return;
-    }
-
     const fetchSongs = async () => {
       setLoading(true);
       try {
         const q = searchQuery.trim();
         let url =
-          `http://localhost:1337/api/songs` +
+          `${config.API_URL}/songs` +
           `?pagination[page]=${currentPage}` +
           `&pagination[pageSize]=${songsPerPage}` +
           `&populate=music`;
@@ -43,9 +39,7 @@ const SongSection = () => {
         });
 
         if (response.status === 401) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          navigate("/login");
+          signOut();
           return;
         }
 
@@ -75,7 +69,7 @@ const SongSection = () => {
 
     try {
       const token = localStorage.getItem("token");
-      await fetch(`http://localhost:1337/api/songs/${songId}`, {
+      await fetch(`${config.API_URL}/songs/${songId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

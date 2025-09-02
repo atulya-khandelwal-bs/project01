@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import config from "../config";
 
 const Hero = () => {
   const [heroContent, setHeroContent] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { token, signOut } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      navigate("/login");
-      return;
-    }
-
     const fetchHeroContent = async () => {
       try {
         const response = await fetch(
-          "http://localhost:1337/api/home-page?populate[HeroSection]=true",
+          config.API_URL + "/home-page?populate[HeroSection]=true",
           {
             headers: {
               "Content-Type": "application/json",
@@ -27,9 +23,7 @@ const Hero = () => {
         );
 
         if (response.status === 401) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          navigate("/login");
+          signOut();
           return;
         }
 

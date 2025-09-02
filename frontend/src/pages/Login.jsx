@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import config from "../config";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function Login() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:1337/api/auth/local", {
+      const response = await fetch(`${config.API_URL}/auth/local`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -54,18 +55,15 @@ export default function Login() {
     }
 
     try {
-      const response = await fetch(
-        "http://localhost:1337/api/auth/local/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            username: formData.username,
-            email: formData.email,
-            password: formData.password,
-          }),
-        }
-      );
+      const response = await fetch(config.API_URL + "/auth/local/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
       const data = await response.json();
 

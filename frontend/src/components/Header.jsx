@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import config from "../config";
 
 function Header() {
   const navigate = useNavigate();
   const [headerData, setHeaderData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { token, isAuthenticated, signOut } = useAuth();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
+    if (!isAuthenticated) {
       navigate("/login");
       return;
     }
@@ -17,7 +18,7 @@ function Header() {
     const fetchHeader = async () => {
       try {
         const response = await fetch(
-          "http://localhost:1337/api/global?populate[header][populate][logo][populate][photo]=true&populate[header][populate][links]=true",
+          `${config.API_URL}/global?populate[header][populate][logo][populate][photo]=true&populate[header][populate][links]=true`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -27,9 +28,7 @@ function Header() {
         );
 
         if (response.status === 401) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          navigate("/login");
+          signOut();
           return;
         }
 
@@ -43,7 +42,7 @@ function Header() {
     };
 
     fetchHeader();
-  }, [navigate]);
+  }, [isAuthenticated, navigate, signOut, token]);
 
   if (loading) {
     return (
@@ -64,29 +63,25 @@ function Header() {
   const logoText = headerData.logo?.text || "App";
   const logoUrl = headerData.logo?.photo?.url
     ? `http://localhost:1337${headerData.logo.photo.url}`
-    : headerData.logo?.photo?.url;
+    : null;
 
   const link = headerData.links?.[0] || { text: "Sign Out", url: "/login" };
-
-  const handleSignOut = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate(link.url || "/login");
-  };
 
   return (
     <header className="bg-gray-800 text-white py-4">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
-          <img
-            src={logoUrl}
-            alt={logoText}
-            className="w-10 h-10 mr-2 object-contain"
-          />
+          {logoUrl && (
+            <img
+              src={logoUrl}
+              alt={logoText}
+              className="w-10 h-10 mr-2 object-contain"
+            />
+          )}
           <h1 className="text-xl font-semibold">{logoText}</h1>
         </div>
         <button
-          onClick={handleSignOut}
+          onClick={signOut}
           className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition"
         >
           {link.text}
